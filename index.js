@@ -37,12 +37,25 @@ app.post('/webhook/', function (req, res) {
         let event = req.body.entry[0].messaging[i]
         let sender = event.sender.id
         if (event.message && event.message.text) {
-            let text = event.message.text
+            let text = event.message.text;
+            processText(response, sender, text);
             sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
         }
     }
     res.sendStatus(200)
 })
+
+
+
+function processText(response, sender, text) {
+    var splitted = text.trim().split(' ');
+    if (splitted.length == 1) {
+        sendTextMessage(sender, 'Regex');
+    } else if (splitted.length > 1) {
+        if (['garitme', 'gamiritme', 'გარითმე', 'გამირითმე'].indexOf(splitted[0].trim()) != -1)
+            sendTextMessage(sender, 'Rhyme');
+    }
+}
 
 function sendTextMessage(sender, text) {
     let messageData = { text: text }
