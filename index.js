@@ -53,11 +53,13 @@ app.post('/webhook/', function (req, res) {
 
 function findAndPostSameRhymeWords(res, sender, word) {
     word = c.toLatin(word);
+    var maxResult = 100;
     var regexLevels = rhyme.rhymeRegex(word);
 
 
     db.words.find({ word: { $regex: regexLevels.level1 } }, (err, level1Result) => {
         console.log('got level 1')
+
         var unitedResult = level1Result;
         if (unitedResult.length < maxResult) {
             db.words.find({ word: { $regex: regexLevels.level2 } }, (err, level2Result) => {
