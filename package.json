@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/bumbeishvili/fb-ritma-messenger-bot/issues"
   },
-  "homepage": "https://github.com/bumbeishvili/fb-ritma-messenger-bot#readme"
+  "homepage": "https://github.com/bumbeishvili/fb-ritma-messenger-bot#readme",
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "express": "^4.14.0",
+    "request": "^2.79.0"
+  }
 }
