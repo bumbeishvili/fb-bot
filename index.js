@@ -8,7 +8,7 @@ var rhyme = require('./rhyme');
 
 
 var mongojs = require('mongojs');
-var db = mongojs(process.env.mongoDBConnection || 'mongodb://bumbeishvili:sklerozi@ds117929.mlab.com:17929/geowords');
+var db = mongojs(process.env.mongoDBConnection );
 var c = new EncodingConverter();
 
 app.set('port', (process.env.PORT || 5000))
@@ -135,7 +135,7 @@ function processResults(res, words, regexLevels, originalString, sender) {
     console.log(result);
 
     // 640 is fb limit on characters in message ;
-    var splitted = result.match(/\>{1,640}/g);
+    var splitted = result.match(/[^>]{1,640}/g);
 
     splitted.forEach((msg, index) => {
         setTimeout(sendTextMessage.bind(null, sender, msg), index * 1000);
