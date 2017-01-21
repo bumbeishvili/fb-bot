@@ -8,7 +8,7 @@ var rhyme = require('./rhyme');
 
 
 var mongojs = require('mongojs');
-var db = mongojs(process.env.mongoDBConnection );
+var db = mongojs(process.env.mongoDBConnection);
 var c = new EncodingConverter();
 
 app.set('port', (process.env.PORT || 5000))
@@ -138,7 +138,10 @@ function processResults(res, words, regexLevels, originalString, sender) {
     var splitted = result.match(/[^>]{1,640}/g);
 
     splitted.forEach((msg, index) => {
-        setTimeout(sendTextMessage.bind(null, sender, msg), index * 1000);
+        if (index < 8) {
+            setTimeout(sendTextMessage.bind(null, sender, msg), index * 1000);
+        }
+
     })
 
 
