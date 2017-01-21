@@ -135,7 +135,8 @@ function processResults(res, words, regexLevels, originalString, sender) {
     console.log(result);
 
     // 640 is fb limit on characters in message ;
-    var splitted = result.match(/.{1,640}/g);
+    var splitted = result.match(/\>{1,640}/g);
+
     splitted.forEach((msg, index) => {
         setTimeout(sendTextMessage.bind(null, sender, msg), index * 1000);
     })
