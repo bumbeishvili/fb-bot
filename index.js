@@ -45,7 +45,7 @@ app.post('/webhook/', function (req, res) {
         if (event.message && event.message.text) {
             let text = event.message.text;
             processText(res, sender, text);
-            sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
+           
         }
     }
     res.sendStatus(200)
@@ -136,7 +136,6 @@ function processResults(res, words, regexLevels, originalString, sender) {
 
     sendTextMessage(sender, result);
 
-    res.sendStatus(200);
 }
 
 function processText(response, sender, text) {
