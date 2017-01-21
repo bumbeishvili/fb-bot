@@ -45,7 +45,7 @@ app.post('/webhook/', function (req, res) {
         if (event.message && event.message.text) {
             let text = event.message.text;
             processText(res, sender, text);
-           
+
         }
     }
     res.sendStatus(200)
@@ -134,7 +134,12 @@ function processResults(res, words, regexLevels, originalString, sender) {
 
     console.log(result);
 
-    sendTextMessage(sender, result);
+    // 640 is fb limit on characters in message ;
+    var splitted = result.match(/.{1,640}/g);
+    splitted.forEach((msg, index) => {
+        setTimeout(sendTextMessage.bind(null, sender, msg), index * 1000);
+    })
+
 
 }
 
