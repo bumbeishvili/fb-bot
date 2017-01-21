@@ -179,7 +179,6 @@ function processResults(res, words, regexLevels, originalString, sender) {
 function processText(response, sender, text) {
     var splitted = text.trim().split(' ');
     if (splitted.length == 1) {
-        sendTextMessage(sender, 'Regex');
         findAndPostRegexWords(response, sender, splitted[0]);
     } else if (splitted.length > 1 && ['garitme', 'gamiritme', 'გარითმე', 'გამირითმე'].indexOf(splitted[0].trim()) != -1) {
         findAndPostSameRhymeWords(response, sender, splitted[1]);
