@@ -54,19 +54,29 @@ app.post('/webhook/', function (req, res) {
 })
 function findAndPostRegexWords(res, sender, word) {
     var regex = c.toLatin(word);
+    console.log(regex);
     db.words.find({ word: { $regex: regex } }, (err, words) => {
-        console.log('got regex');
+        try {
 
-        var result = words.map((w, i) => (i + 1) + '. ' + c.toGeorgian(w.word)).join('\u000A');
-        // 640 is fb limit on characters in message ;
-        var splitted = result.match(/[^>]{1,640}/g);
 
-        splitted.forEach((msg, index) => {
-            if (index < 8) {
-                setTimeout(sendTextMessage.bind(null, sender, msg), index * 1000);
+            console.log('got regex');
+            console.log(words);
+
+            var result = words.map((w, i) => (i + 1) + '. ' + c.toGeorgian(w.word)).join('\u000A');
+            // 640 is fb limit on characters in message ;
+            var splitted = result.match(/[^>]{1,640}/g);
+            console.log()
+            if (splitted) {
+                splitted.forEach((msg, index) => {
+                    if (index < 8) {
+                        setTimeout(sendTextMessage.bind(null, sender, msg), index * 1000);
+                    }
+
+                })
             }
-
-        })
+        } catch (err) {
+            sendTextMessage(sender, err)
+        }
 
     })
 }
