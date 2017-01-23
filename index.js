@@ -159,7 +159,7 @@ function processResults(res, words, regexLevels, originalString, sender) {
 
     uniqs.sort((a, b) => a.orderIndex - b.orderIndex);
 
-    var result = uniqs.map((w, i) => (i + 1) + '. ' + c.toGeorgian(w.word)).join('\u000A');
+    var result = uniqs.filter(w=>w.word.trim()).map((w, i) => (i + 1) + '. ' + c.toGeorgian(w.word)).join('\u000A');
 
     console.log(result);
 
