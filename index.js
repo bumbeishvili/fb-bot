@@ -62,7 +62,7 @@ function findAndPostRegexWords(res, sender, word) {
             console.log('got regex');
             console.log(words);
 
-            var result = words.map((w, i) => (i + 1) + '. ' + c.toGeorgian(w.word)).join('\u000A');
+            var result = words.filter(w => w.word).map((w, i) => (i + 1) + '. ' + c.toGeorgian(w.word)).join('\u000A');
             // 640 is fb limit on characters in message ;
             var splitted = result.match(/[^>]{1,640}/g);
             console.log()
