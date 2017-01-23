@@ -167,7 +167,7 @@ function processResults(res, words, regexLevels, originalString, sender) {
     var splitted = result.match(/[^>]{1,640}/g);
 
     splitted.forEach((msg, index) => {
-        if (index < 8) {
+        if (index < 1) {
             setTimeout(sendTextMessage.bind(null, sender, msg), index * 1000);
         }
 
