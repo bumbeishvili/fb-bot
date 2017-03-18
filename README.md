@@ -6,7 +6,13 @@ Messenger bot, which answers you with georgian similar rhyme words and also let'
 15 Minute tutorial - https://github.com/jw84/messenger-bot-tutorial
 
 
-Page Link - https://www.facebook.com/%E1%83%A0%E1%83%98%E1%83%97%E1%83%9B%E1%83%90-369999366702204/
+Page Link - https://www.facebook.com/geo.lang.bot/
+
+
+
+**New Ideas**  
+1. [weather](ideas/weather.md)  
+
 
 ##How is it working
 
