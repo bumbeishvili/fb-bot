@@ -11,10 +11,11 @@ Page Link - https://www.facebook.com/geo.lang.bot/
 
 
 **New Ideas**  
-1. [weather](ideas/weather.md)  
+1. [weather](ideas/weather.md)    
 
 
-##How is it working
+
+## How is it working
 
 For Regex Search, write him one word,which will be valid regex statement 
 
