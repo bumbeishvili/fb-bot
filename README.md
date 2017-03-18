@@ -1,4 +1,4 @@
-# fb-ritma-messenger-bot
+# fb personal bot
 Messenger bot, which answers you with georgian similar rhyme words and also let's you query word db using regex
 
 
