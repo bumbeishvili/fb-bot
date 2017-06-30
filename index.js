@@ -203,7 +203,8 @@ function processText(response, sender, text) {
   } else if (splitted.length > 1 && ['garitme', 'gamiritme', 'გარითმე', 'გამირითმე'].indexOf(splitted[0].trim()) != -1) {
     findAndPostSameRhymeWords(response, sender, splitted[1]);
   } else {
-    console.log({ sender: sender, message: text, date: new Date() });
+    var logObj = { sender: sender, message: text, date: new Date() };
+    conversationsDB.conversations.insert(logObj);
     sendTextMessage(sender, 'ვერ გევიგე, რა გინდა :/');
   }
 }
