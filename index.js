@@ -16,14 +16,42 @@ var c = new EncodingConverter();
 var maxResult = 100;
 
 app.set('port', (process.env.PORT || 5000))
+app.set('port', 5555)
+app.listen(3000, function () {
+  console.log('listening on 3000')
+})
 
-// Process application/x-www-form-urlencoded
+// // Process application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
 
-// Process application/json
+// // Process application/json
 app.use(bodyParser.json())
 
-// Index route
+
+
+app.post('/api/answers/save', function (req, res) {
+
+  var post_data = JSON.parse(Object.keys(req.body)[0]);
+  if (!post_data._id) {
+    post_data._id = "ID" + Math.floor(Math.random() * 1000000) + Date.now();
+  }
+
+  conversationsDB.answers.save(post_data, { w: 1 }, (err, data) => {
+    res.json(data);
+  })
+  
+
+})
+
+
+app.get('/api/answers', function (req, res) {
+
+  conversationsDB.answers.find().toArray(function (err, items) {
+    res.json(items);
+  });
+
+})
+
 app.get('/', function (req, res) {
   res.send('Hello world, I am a chat bot')
 })
@@ -41,8 +69,8 @@ app.get('/conversations', function (req, res) {
   })
 })
 
-app.get('/admin', function (req,res) {
-    res.sendFile(__dirname + '/views/admin.html')
+app.get('/admin', function (req, res) {
+  res.sendFile(__dirname + '/views/admin.html')
 })
 
 
@@ -135,7 +163,7 @@ function findAndPostSameRhymeWords(res, sender, word) {
 }
 
 
-//remove after
+// //remove after
 // app.get('/rhyme/:word', function (req, res) {
 //     var maxResult = 100;
 //     //res.send('all good' + req.params.word);

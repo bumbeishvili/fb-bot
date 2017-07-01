@@ -5,12 +5,220 @@
   <meta charset="UTF-8">
   <title>MY APP</title>
 </head>
-<script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.9/css/bootstrap-dialog.min.css" rel="stylesheet"
+  type="text/css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.9/js/bootstrap-dialog.min.js"></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" type="text/css" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-</script>
+
+<!--<script src="/libs/d3.v4.js"></script>-->
+<style>
+  p {
+    padding: 3px;
+    margin: 3px;
+  }
+
+  body {
+    text-align: center;
+    color: #2C3E50;
+  }
+
+  input {
+    display: block;
+  }
+
+  tr:nth-child(even) input {
+    background-color: #4c87b9;
+  }
+
+  tr:nth-child(odd) input {
+    background-color: #1BBC9B;
+  }
+</style>
+
 
 <body>
-  Loading questions ...
+  <div id="resdult">
+    <button onclick="show({questions:[],answers:[]})" style="float:left"> new</button> <br>
+    <table>
+      <thead>
+        <tr>
+          <th>N</th>
+          <th>კითხვები</th>
+          <th>პასუხები</th>
+          <th>edit</th>
+        </tr>
+        <tbody>
+
+        </tbody>
+      </thead>
+
+    </table>
+  </div>
+
+
+  <script>
+    var data = null;
+
+    d3.json('/api/answers', function (loaded) {
+      data = loaded;
+      update();
+    })
+
+
+
+    function update() {
+      data.forEach((d, i) => {
+        d.index = i + 1;
+      })
+      var table = d3.select('table')
+
+      var tbody = table.selectAll('tbody').data(['tbody'])
+
+      tbody.exit().remove()
+      tbody = tbody.enter()
+        .append('tbody')
+        .merge(tbody)
+
+      var rows = tbody.selectAll(".rows").data(data);
+      rows.exit().remove();
+      rows = rows.enter()
+        .append('tr')
+        .merge(rows)
+        .attr('class', 'rows')
+
+
+      var index = rows.selectAll('.index').data(d => [d])
+      index.exit().remove();
+      index = index.enter()
+        .append('td')
+        .merge(index)
+        .attr('class', 'index')
+        .html(d => d.index)
+
+      var questionColumns = rows.selectAll('.q-columns').data(d => [d])
+      questionColumns.exit().remove();
+      questionColumns = questionColumns.enter()
+        .append('td')
+        .merge(questionColumns)
+        .style("color", 'white')
+        .attr('class', 'q-columns')
+
+
+
+      var questions = questionColumns.selectAll('.questions').data(d => d.questions)
+      questions.exit().remove();
+      questions = questions.enter().append('input').merge(questions)
+        .attr('value', d => d)
+        .style('color', 'white')
+        .attr('class', 'questions')
+
+
+
+      var answersColumn = rows.selectAll('.answers-columns').data(d => [d])
+      answersColumn.exit().remove();
+
+      answersColumn = answersColumn.enter()
+        .append('td')
+        .merge(answersColumn)
+        .style("color", 'white')
+        .attr('class', 'answers-columns')
+
+
+
+      var answers = answersColumn.selectAll('.answers').data(d => d.answers)
+      answers.exit().remove();
+      answers = answers.enter().append('input').merge(answers)
+        .attr('value', d => d)
+        .style('color', 'white')
+        .attr('class', 'answers')
+
+
+
+      var editColumn = rows.selectAll('.edit-columns').data(d => [d])
+      editColumn.exit().remove();
+
+      editColumn = editColumn.enter()
+        .append('td')
+        .merge(editColumn)
+        .html('<button>edit</button>')
+        .attr('class', 'edit-columns')
+        .on('click', d => {
+          show(d);
+        });
+
+    }
+
+
+
+
+
+
+
+    function show(d) {
+      BootstrapDialog.show({
+        title: "რედაქტირება",
+        message: $(`
+                <div id="ID${d._id}">
+                <textarea id="questions" >${d.questions.join("|")}</textarea>
+                <textarea id="answers" >${d.answers.join("|")}</textarea>
+                <br>
+                <button onclick ='save("#ID${d._id}","${d._id}")'>save</button>
+                </div>
+          `)
+      })
+    }
+
+
+    function save(selector, id) {
+      if (id == 'undefined') id = null;
+
+      var questions = document.querySelector(selector + " #questions").value;
+      var answers = document.querySelector(selector + " #answers").value;
+      questions = questions.split('|')
+      answers = answers.split('|');
+
+
+
+      var result = {
+        _id: id,
+        questions: questions,
+        answers: answers
+      }
+
+
+
+      $.post("/api/answers/save", JSON.stringify(result))
+        .done(function (saved) {
+
+
+          var found = data.filter(d => d._id == saved._id);
+          if (found.length) {
+            found.forEach(d => {
+              d.answers = saved.answers;
+              d.questions = saved.questions;
+
+            })
+          } else {
+            data.push(saved);
+            d3.select(selector + ' button').remove();
+            d3.select(selector).append('button').html('save').on('click', d => save(selector, saved._id))
+
+          }
+          toastr.success('შენახულ!')
+          update();
+
+
+        });
+
+
+    }
+  </script>
 </body>
 
 </html>
