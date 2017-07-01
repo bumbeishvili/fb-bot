@@ -33,7 +33,7 @@ app.get('/conversations', function (req, res) {
   var regex = '.';
   conversationsDB.conversations.find({ message: { $regex: regex } }, (err, messages) => {
     try {
-      res.json(JSON.stringify(messages));
+      res.json(messages);
     } catch (err) {
       console.log(err);
     }
