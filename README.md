@@ -14,14 +14,17 @@ Page Link - https://www.facebook.com/geo.lang.bot/
 1. [weather](ideas/weather.md)    
 
 
+urls:  
+`/admin` - configurations for bot  
+`/conversations` - conversations history  
 
 ## How is it working
 
-For Regex Search, write him one word,which will be valid regex statement 
+For Regex Search, write him one word,which will be valid regex statement and prepent word `regex` 
 
-`ტესტ`   -  words which consist of `ტესტ`  
-`^...$`    -  words, which are three characters length  
-`^ა`    - words , which begins with `ა`
+`regex ტესტ`   -  words which consist of `ტესტ`  
+`regex ^...$`    -  words, which are three characters length  
+`regex ^ა`    - words , which begins with `ა`
 
 
 To search words with same rhyme, write him word `garitme` and actual word to be rhymed  
@@ -31,45 +34,6 @@ To search words with same rhyme, write him word `garitme` and actual word to be 
 `garitme rame`  
 
 
-## Georgian Description
-# გვერდის შესახებ
-
-ჩეთბოტი, რომელიც რითმავს ქართულ სიტყვებს და რეგექსი თუ იცით, უფრო კაი რაღაცებსაც აკეთებს
-
-
-### როგორ უნდა გავრითმოთ სიტყვა?
-უბრალოდ მიწერეთ   
-`გამირითმე კაკალი`   
-
-ან უფრო რთული  ვცადოთ   
-`გარითმე ჰიდროელექტროსადგური` 
-
-### რეგექსი ვიცი და როგორ გამოვიყენო?
-უბრალოდ მიწერეთ ერთი სიტყვა რომელიც ვალიდური რეგექსის ბრძანება იქნება    
-
----  
-
-**case** : მინდა კრეატიული დომეინი   
-
-`მე$` - სიტყვები რომელიც me-ზე მთავრდება    
-`იო$` - სიტყვები რომელიც io-ზე მთავრდება  
-`ჯი$` - სიტყვები რომელიც ჯი-ზე მთავრდება   
-`მი$` - სიტყვები რომელიც მი-ზე მთავრდება  
-`მე$` - სიტყვები რომელიც მე-ზე მთავრდება  
-`გა$` - სიტყვები რომელიც გა-ზე მთავრდება  
-
----
-
-**case** : მინდა კრეატიული მანქანის ნომერი  
-
-`^..ასი..$` - ყველა სიტყვა, რომლებშიც '100' ურევია და წინ და ბოლოს ორი ასო აქვს -`kl100ka`  
-`^..ოც..$` - ყველა სიტყვა, რომლებშიც 'ოც' ურევია და წინ და ბოლოს ორი ასო აქვს -` il020et`  
-
-
----
-
-**other**  
-`^(.)(.)(.)\2\1$` - 5 ასოიანი პალინდრომები (თავიდან და ბოლოდან ერთნაირად იკითხება)  
 
 
 
