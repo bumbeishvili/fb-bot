@@ -204,7 +204,7 @@ function processText(response, sender, text) {
     findAndPostSameRhymeWords(response, sender, splitted[1]);
   } else {
     var logObj = { sender: sender, message: text, date: new Date() };
-    conversationsDB.conversations.insert(logObj);
+    conversationsDB.messages.insert(logObj);
     sendTextMessage(sender, 'ვერ გევიგე, რა გინდა :/');
   }
 }
