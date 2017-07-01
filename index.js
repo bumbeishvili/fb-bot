@@ -204,7 +204,11 @@ function processText(response, sender, text) {
     findAndPostSameRhymeWords(response, sender, splitted[1]);
   } else {
     var logObj = { sender: sender, message: text, date: new Date() };
-    conversationsDB.messages.insert(logObj);
+    
+    if (sender != 369999366702204) {
+      conversationsDB.messages.insert(logObj);
+    }
+
     sendTextMessage(sender, 'ვერ გევიგე, რა გინდა :/');
   }
 }
