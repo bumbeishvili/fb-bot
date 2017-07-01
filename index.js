@@ -42,7 +42,7 @@ app.get('/conversations', function (req, res) {
 })
 
 app.get('/admin', function (req,res) {
-    res.send('<h1>Hi There</h1>')
+    res.sendFile(__dirname + '/views/admin.html')
 })
 
 
