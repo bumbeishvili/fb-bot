@@ -41,6 +41,10 @@ app.get('/conversations', function (req, res) {
   })
 })
 
+app.get('/admin', function () {
+    res.send('<h1>Hi There</h1>')
+})
+
 
 // for Facebook verification
 app.get('/webhook/', function (req, res) {
@@ -204,7 +208,7 @@ function processText(response, sender, text) {
     findAndPostSameRhymeWords(response, sender, splitted[1]);
   } else {
     var logObj = { sender: sender, message: text, date: new Date() };
-    
+
     if (sender != 369999366702204) {
       conversationsDB.messages.insert(logObj);
     }
