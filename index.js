@@ -33,7 +33,7 @@ app.get('/conversations', function (req, res) {
   var regex = '.';
   conversationsDB.conversations.find({ message: { $regex: regex } }, (err, messages) => {
     try {
-      res.send(JSON.stringify(messages));
+      res.json(JSON.stringify(messages));
     } catch (err) {
       console.log(err);
     }
@@ -204,10 +204,7 @@ function processText(response, sender, text) {
     findAndPostSameRhymeWords(response, sender, splitted[1]);
   } else {
     var logObj = { sender: sender, message: text, date: new Date() };
-    if (sender != 369999366702204) {  // bots answer comes here somewhat and we are restricting it
-      conversationsDB.messages.insert(logObj);
-    }
-
+    conversationsDB.messages.insert(logObj);
     sendTextMessage(sender, 'ვერ გევიგე, რა გინდა :/');
   }
 }
