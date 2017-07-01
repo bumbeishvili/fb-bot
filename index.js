@@ -16,10 +16,9 @@ var c = new EncodingConverter();
 var maxResult = 100;
 
 app.set('port', (process.env.PORT || 5000))
-app.set('port', 5555)
-app.listen(3000, function () {
-  console.log('listening on 3000')
-})
+// app.listen(3000, function () {
+//   console.log('listening on 3000')
+// })
 
 // // Process application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
