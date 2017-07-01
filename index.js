@@ -41,7 +41,7 @@ app.get('/conversations', function (req, res) {
   })
 })
 
-app.get('/admin', function () {
+app.get('/admin', function (req,res) {
     res.send('<h1>Hi There</h1>')
 })
 
