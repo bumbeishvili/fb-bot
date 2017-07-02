@@ -330,6 +330,7 @@ function getResponse(message, data) {
     }
 
   })
+  resp = [resp,'სიზუსტე ' + (100-lastDiff*100).toFixed(0)+'%'].join('\u000A \u000A')
   return resp;
 }
 
