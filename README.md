@@ -12,6 +12,7 @@ Page Link - https://www.facebook.com/geo.lang.bot/
 
 **New Ideas**  
 1. [weather](ideas/weather.md)    
+2. [movie helper](MovieHelper.md)
 
 
 urls:  
