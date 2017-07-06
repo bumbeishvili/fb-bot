@@ -229,7 +229,7 @@ function processResults(res, words, regexLevels, originalString, sender) {
 function processText(response, sender, text) {
   var splitted = text.trim().split(' ');
 
-  if (splitted.length > 1 && ['regex', 'reg', 'რეგექსი', 'იპოვე', 'მოძებნე'].indexOf(splitted[0].trim()) != -1) {
+  if (splitted.length > 1 && ['regex', 'reg', 'რეგექსი', 'იპოვე', 'მოძებნე','რეჯექს','რეჯექსი','რეჯ','რჯ','rg'].indexOf(splitted[0].trim()) != -1) {
     findAndPostRegexWords(response, sender, splitted[1]);
   } else if (splitted.length > 1 && ['garitme', 'gamiritme', 'გარითმე', 'გამირითმე'].indexOf(splitted[0].trim()) != -1) {
     findAndPostSameRhymeWords(response, sender, splitted[1]);
