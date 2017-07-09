@@ -113,6 +113,7 @@ function findAndPostRegexWords(res, sender, word) {
 
       console.log('got regex');
       console.log(words);
+      words.orderByDescending(d=>d.count);
 
       var result = words.filter(w => w.word).map((w, i) => (i + 1) + '. ' + c.toGeorgian(w.word)).join('\u000A');
       // 640 is fb limit on characters in message ;
@@ -369,3 +370,18 @@ function levenshteinDistance(a, b) {
 
   return matrix[b.length][a.length];
 };
+
+
+
+
+Array.prototype.orderByDescending = function (func) {
+    this.sort((a, b) => {
+        var a = func(a);
+        var b = func(b);
+        if (typeof a === 'string' || a instanceof String) {
+            return b.localeCompare(a);
+        }
+        return b - a;
+    });
+    return this;
+}
