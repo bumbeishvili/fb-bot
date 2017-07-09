@@ -105,7 +105,7 @@ app.post('/webhook/', function (req, res) {
 function findAndPostRegexWords(res, sender, word) {
   var regex = c.toLatin(word);
   console.log(regex);
-  db.words.find({ word: { $regex: regex } }, (err, words) => {
+  db.wordsGJ.find({ word: { $regex: regex } }, (err, words) => {
     try {
 
 
@@ -136,16 +136,16 @@ function findAndPostSameRhymeWords(res, sender, word) {
   var regexLevels = rhyme.rhymeRegex(word);
 
 
-  db.words.find({ word: { $regex: regexLevels.level1 } }, (err, level1Result) => {
+  db.wordsGJ.find({ word: { $regex: regexLevels.level1 } }, (err, level1Result) => {
     console.log('got level 1')
 
     var unitedResult = level1Result;
     if (unitedResult.length < maxResult) {
-      db.words.find({ word: { $regex: regexLevels.level2 } }, (err, level2Result) => {
+      db.wordsGJ.find({ word: { $regex: regexLevels.level2 } }, (err, level2Result) => {
         unitedResult = unitedResult.concat(level2Result)
         console.log('got level 2');
         if (unitedResult.length < maxResult) {
-          db.words.find({ word: { $regex: regexLevels.level3 } }, (err, level3Result) => {
+          db.wordsGJ.find({ word: { $regex: regexLevels.level3 } }, (err, level3Result) => {
             unitedResult = unitedResult.concat(level3Result, regexLevels);
             processResults(res, unitedResult, regexLevels, word, sender);
 
