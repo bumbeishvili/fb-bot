@@ -1,3 +1,55 @@
+
+### parsing scripts
+```javascript
+Array.prototype.orderByDescending = function (func) {
+    this.sort((a, b) => {
+        var a = func(a);
+        var b = func(b);
+        if (typeof a === 'string' || a instanceof String) {
+            return b.localeCompare(a);
+        }
+        return b - a;
+    });
+    return this;
+}
+
+function parseWords(data){
+var keys = {}
+
+data.split(/\n/).map(d=>{
+var result;
+try{
+  result = JSON.parse(d)
+}catch(e){
+  result = {message:"parseError"}
+}
+return result;
+
+})
+.map(d=>d.message)
+.forEach(d=>{
+   var split = d.split(" ");
+   split.forEach(s=>{
+      if(!keys[s])keys[s]=0
+        
+       keys[s]+=1;
+   
+   })
+
+})
+
+var words = Object.keys(keys).map(d=>{return {word:d,occurence:keys[d]}})
+
+words.orderByDescending(d=>d.occurence);
+return words;
+
+}
+
+parseWords(data).map(d=>`${d.word} -  ${d.occurence}`).join("\n")
+```
+
+### words
+
 ```
 ხარ -  168
 რა -  128
